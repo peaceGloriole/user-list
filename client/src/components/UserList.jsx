@@ -73,8 +73,18 @@ const UserList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* <!-- Table row component --> */}
-                        <UserListItem />
+                        {users.map(user => (
+                            <UserListItem 
+                                createdAt={user.createdAt}
+                                email={user.email}
+                                firstName={user.firstName}
+                                imageUrl={user.imageUrl}
+                                lastName={user.lastName}
+                                phoneNumber={user.phoneNumber}
+                                key={user._id}
+                                _id={user._id}
+                            />
+                        ))}
                     </tbody>
                 </table>
         </div>

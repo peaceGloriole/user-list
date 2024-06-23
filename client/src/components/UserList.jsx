@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import UserListItem from "./UserListItem";
 import * as userService from '../api/userServices';
 import { useEffect, useState } from 'react';

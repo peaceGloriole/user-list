@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 const CreateUser = ({
-    hideModal
+    onUserCreate,
+    hideModal,
 }) => {
     return (
         <div className
@@ -25,7 +26,7 @@ const CreateUser = ({
                             </svg>
                         </button>
                     </header>
-                    <form>
+                    <form onSubmit={onUserCreate}>
                         <div className
                             ="form-row">
                             <div className

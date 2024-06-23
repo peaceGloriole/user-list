@@ -20,10 +20,24 @@ const UserList = () => {
         setShowCreate(false);
     };
 
+    const onUserCreate = async (e) => {
+        e.preventDefault();
+
+        const data = Object.fromEntries(new FormData(e.target));
+
+        const newUser = await userService.create(data);
+        setUsers(status => [...status, newUser]);
+
+        setShowCreate(false);
+    };
     return (
         <div className="table-wrapper">
 
-            {showCreate && <CreateUser hideModal={hideCreateUser} />}
+            {showCreate && (
+                <CreateUser
+                    hideModal={hideCreateUser}
+                    onUserCreate={onUserCreate}
+                />)}
 
             <table className="table">
                 <thead>

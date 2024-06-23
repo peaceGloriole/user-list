@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 const CreateUser = ({
     onUserCreate,
-    hideModal,
+    hideModal
 }) => {
     return (
         <div className

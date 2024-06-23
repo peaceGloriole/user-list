@@ -40,6 +40,13 @@ export const create = async (user) => {
     });
 
     const result = await response.json();
-    console.log(result);
+    
+    return result;
+};
+
+export const getOne = async (id) => {
+    const response = await fetch(`${baseUrl}/${id}`);
+    const result = await response.json();
+
     return result;
 };

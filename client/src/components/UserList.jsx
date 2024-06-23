@@ -2,10 +2,13 @@ import UserListItem from "./UserListItem";
 import * as userService from '../api/userServices';
 import { useEffect, useState } from 'react';
 import CreateUser from "./CreateUser";
+import UserInfoModal from "./UserInfoModal";
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
     const [showCreate, setShowCreate] = useState(false);
+    const [showInfo, setShowInfo] = useState(false);
+    const [selectUser, setSelectUser] = useState(null);
 
     useEffect(() => {
         userService.getAll()
@@ -30,6 +33,12 @@ const UserList = () => {
 
         setShowCreate(false);
     };
+
+    const userInfoClickHandler = async (userId) => {
+        setSelectUser(userId);
+        setShowInfo(true);
+    };
+
     return (
         <div className="table-wrapper">
 
@@ -37,6 +46,13 @@ const UserList = () => {
                 <CreateUser
                     hideModal={hideCreateUser}
                     onUserCreate={onUserCreate}
+                />)}
+
+            {showInfo && (
+                <UserInfoModal 
+                    onClose={() => 
+                        setShowInfo(false)} 
+                        userId={selectUser} 
                 />)}
 
             <table className="table">
@@ -110,6 +126,7 @@ const UserList = () => {
                             phoneNumber={user.phoneNumber}
                             key={user._id}
                             _id={user._id}
+                            onInfoClick={userInfoClickHandler}
                         />
                     ))}
                 </tbody>

@@ -3,12 +3,14 @@ import * as userService from '../api/userServices';
 import { useEffect, useState } from 'react';
 import CreateUser from "./CreateUser";
 import UserInfoModal from "./UserInfoModal";
+import UserDeleteModal from "./DeleteUser";
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
     const [showCreate, setShowCreate] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
     const [selectUser, setSelectUser] = useState(null);
+    const [showDelete, setShowDelete] = useState(false);
 
     useEffect(() => {
         userService.getAll()
@@ -39,6 +41,17 @@ const UserList = () => {
         setShowInfo(true);
     };
 
+    const deleteUserClickHandler = (userId) => {
+        setSelectUser(userId);
+        setShowDelete(true);
+    };
+
+    const deleteUserHandler = async () => {
+        const result = await userService.deleteUser(selectUser);
+        setUsers(status => status.filter(user => user._id !== selectUser));
+        setShowDelete(false);
+    };
+
     return (
         <div className="table-wrapper">
 
@@ -49,10 +62,16 @@ const UserList = () => {
                 />)}
 
             {showInfo && (
-                <UserInfoModal 
-                    onClose={() => 
-                        setShowInfo(false)} 
-                        userId={selectUser} 
+                <UserInfoModal
+                    onClose={() =>
+                        setShowInfo(false)}
+                    userId={selectUser}
+                />)}
+
+            {showDelete && (
+                <UserDeleteModal
+                    onClose={() => setShowDelete(false)}
+                    onDelete={deleteUserHandler}
                 />)}
 
             <table className="table">
@@ -127,6 +146,7 @@ const UserList = () => {
                             key={user._id}
                             _id={user._id}
                             onInfoClick={userInfoClickHandler}
+                            onDeleteClick={deleteUserClickHandler}
                         />
                     ))}
                 </tbody>

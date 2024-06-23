@@ -40,7 +40,7 @@ export const create = async (user) => {
     });
 
     const result = await response.json();
-    
+
     return result;
 };
 
@@ -49,4 +49,14 @@ export const getOne = async (id) => {
     const result = await response.json();
 
     return result;
+};
+
+export const deleteUser = async (userId) => {
+    const response = await fetch(`${baseUrl}/${userId}`, {
+        method: `DELETE`,
+    });
+
+    const data = await response.json();
+
+    return data;
 };
